@@ -1,51 +1,56 @@
-
 body {
-    font-family: 'Arial', sans-serif;
-    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
     margin: 0;
     padding: 0;
-    color: #333;
   }
   
   .container {
-    max-width: 960px;
-    margin: auto;
-    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
     background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   }
   
   h1 {
     text-align: center;
-    font-size: 26px;
+    font-size: 2rem;
     margin-bottom: 30px;
   }
   
   #viz {
-    text-align: center;
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
   }
   
-  .controls {
-    text-align: center;
-    margin-top: 10px;
+  .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
   }
   
-  button {
+  .navigation button {
     padding: 10px 20px;
-    margin: 0 20px;
-    font-size: 16px;
-    border: none;
-    background-color: #1976D2;
-    color: white;
+    font-size: 1rem;
+    border: 2px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
+    transition: all 0.3s ease;
   }
   
-  button:hover {
-    background-color: #0D47A1;
+  .navigation button:hover {
+    background-color: #007bff;
+    color: white;
   }
   
   #sceneIndicator {
-    font-size: 18px;
+    font-weight: bold;
   }
+  

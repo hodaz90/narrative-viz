@@ -1,17 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Annual CO₂ Emissions – 7 Country Focus</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Annual CO₂ Emissions – 7 Country Focus</h1>
+    <h1>Annual CO<sub>2</sub> Emissions – 7 Country Focus</h1>
+
     <div id="viz"></div>
-    <div class="controls">
+
+    <div class="navigation">
       <button onclick="prevScene()">Previous</button>
       <span id="sceneIndicator">Scene 1 of 5</span>
       <button onclick="nextScene()">Next</button>
@@ -19,31 +21,5 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-    let currentScene = 1;
-    const scenes = [drawScene1, drawScene2, drawScene3, drawScene4, drawScene5];
-
-    function renderScene(index) {
-      scenes[index - 1]();
-      document.getElementById("sceneIndicator").innerText = `Scene ${index} of ${scenes.length}`;
-    }
-
-    function nextScene() {
-      if (currentScene < scenes.length) {
-        currentScene++;
-        renderScene(currentScene);
-      }
-    }
-
-    function prevScene() {
-      if (currentScene > 1) {
-        currentScene--;
-        renderScene(currentScene);
-      }
-    }
-
-    // Initialize first scene
-    renderScene(currentScene);
-  </script>
 </body>
 </html>
