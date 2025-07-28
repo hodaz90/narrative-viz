@@ -1,31 +1,21 @@
 # Narrative Visualization: Annual CO₂ Emissions – 7 Country Focus
 
-This project is a narrative visualization using D3.js to explore and communicate insights about CO₂ emissions data across key countries. It is designed for an academic assignment focused on interactive data storytelling.
+This project is a D3-based narrative visualization hosted via GitHub Pages. It visualizes CO₂ emissions across seven countries over time and across various metrics.
 
-## Project Structure
+## Features
 
-- `index.html` — main HTML structure for the web interface.
-- `style.css` — visual styling for layout and components.
-- `script.js` — D3-powered logic rendering all scenes.
-- `data/co2_filtered.csv` — dataset containing annual CO₂ emissions.
-- `essay.pdf` — same essay exported in PDF format for submission.
+- Five interactive scenes exploring different aspects of CO₂ emissions.
+- Annotations and visual transitions between scenes.
+- Uses D3.js (v7) exclusively as required.
 
-## Scenes
+## Live Demo
 
-1. **Total CO₂ Emissions Over Time**
-2. **CO₂ Emissions by Continent**
-3. **Regional CO₂ Emissions in 2020**
-4. **Emission Growth from 2000 to 2020**
-5. **Top Emitters in 2020**
+[View on GitHub Pages](https://hodaz90.github.io/narrative-viz/)
 
-## Live Website
+## Files
 
-View the interactive visualization hosted via GitHub Pages:  
-[https://hodaz90.github.io/narrative-viz](https://hodaz90.github.io/narrative-viz)
-
-## Tools Used
-
-- D3.js v7
-- HTML/CSS/JS
-- GitHub Pages
-
+- `index.html` – Main page
+- `script.js` – Visualization logic
+- `style.css` – Basic styling
+- `data/co2_filtered.csv` – Dataset
+- `essay.pdf` – Essay describing narrative decisions

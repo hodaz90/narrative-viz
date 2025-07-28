@@ -1,51 +1,20 @@
-
-body {
-    font-family: 'Arial', sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
-  }
-  
-  .container {
+.container {
     max-width: 960px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  h1 {
+    margin: 0 auto;
     text-align: center;
-    font-size: 26px;
-    margin-bottom: 30px;
   }
   
   #viz {
-    text-align: center;
-    margin-bottom: 30px;
+    margin: 20px 0;
   }
   
   .controls {
-    text-align: center;
     margin-top: 10px;
   }
   
   button {
-    padding: 10px 20px;
-    margin: 0 20px;
+    padding: 8px 12px;
+    margin: 0 5px;
     font-size: 16px;
-    border: none;
-    background-color: #1976D2;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
   }
   
-  button:hover {
-    background-color: #0D47A1;
-  }
-  
-  #sceneIndicator {
-    font-size: 18px;
-  }
