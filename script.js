@@ -1,14 +1,13 @@
-
 let currentScene = 1;
 const totalScenes = 5;
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("prev").addEventListener("click", () => {
+  document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentScene > 1) currentScene--;
     renderScene();
   });
 
-  document.getElementById("next").addEventListener("click", () => {
+  document.getElementById("nextBtn").addEventListener("click", () => {
     if (currentScene < totalScenes) currentScene++;
     renderScene();
   });
@@ -17,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function renderScene() {
-  document.getElementById("scene-indicator").innerText = `Scene ${currentScene} of ${totalScenes}`;
+  document.getElementById("sceneIndicator").innerText = `Scene ${currentScene} of ${totalScenes}`;
   switch (currentScene) {
     case 1: drawScene1(); break;
     case 2: drawScene2(); break;
@@ -33,7 +32,7 @@ function clearViz() {
 
 function drawScene1() {
   clearViz();
-  const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+  const margin = { top: 50, right: 100, bottom: 60, left: 80 };
   const width = 900 - margin.left - margin.right;
   const height = 500 - margin.top - margin.bottom;
 
@@ -45,27 +44,37 @@ function drawScene1() {
 
   svg.append("text")
     .attr("x", width / 2)
-    .attr("y", -10)
+    .attr("y", -20)
     .attr("text-anchor", "middle")
     .style("font-size", "20px")
     .style("font-weight", "bold")
     .text("Scene 1: Total CO₂ Emissions Over Time");
 
   d3.csv("data/co2_filtered.csv").then(data => {
-    const countries = [...new Set(data.map(d => d.Entity))];
+    const countries = ["Brazil", "China", "France", "Germany", "India", "United Kingdom", "United States"];
     data.forEach(d => {
       d.Year = +d.Year;
       d.Emissions = +d["Annual CO₂ emissions"];
     });
 
-    const x = d3.scaleLinear().domain(d3.extent(data, d => d.Year)).range([0, width]);
-    const y = d3.scaleLinear().domain([0, d3.max(data, d => d.Emissions)]).range([height, 0]);
+    const x = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.Year))
+      .range([0, width]);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.Emissions)])
+      .nice()
+      .range([height, 0]);
 
     svg.append("g").call(d3.axisLeft(y));
-    svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x));
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickFormat(d3.format("d")));
 
     const color = d3.scaleOrdinal(d3.schemeTableau10).domain(countries);
-    const line = d3.line().x(d => x(d.Year)).y(d => y(d.Emissions));
+    const line = d3.line()
+      .x(d => x(d.Year))
+      .y(d => y(d.Emissions));
 
     countries.forEach(c => {
       const countryData = data.filter(d => d.Entity === c);
@@ -77,14 +86,14 @@ function drawScene1() {
         .attr("d", line);
     });
 
-    svg.selectAll(".label")
-      .data(countries)
-      .enter()
-      .append("text")
-      .attr("x", width - 70)
-      .attr("y", (d, i) => 20 * i + 20)
-      .text(d => d)
-      .style("fill", d => color(d));
+    // Add country labels
+    countries.forEach((c, i) => {
+      svg.append("text")
+        .attr("x", width + 10)
+        .attr("y", 20 * i)
+        .attr("fill", color(c))
+        .text(c);
+    });
   });
 }
 
@@ -102,7 +111,6 @@ function drawScene2() {
     .style("font-weight", "bold")
     .text("Scene 2: CO₂ Emissions by Continent (Placeholder)");
 
-  // Placeholder: Static data for now
   const data = [
     { region: "Asia", emissions: 18000000000 },
     { region: "Europe", emissions: 8000000000 },
@@ -111,13 +119,13 @@ function drawScene2() {
     { region: "Africa", emissions: 1300000000 }
   ];
 
-  const margin = { top: 60, right: 30, bottom: 60, left: 60 };
+  const margin = { top: 60, right: 30, bottom: 60, left: 100 };
   const width = +svg.attr("width") - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
   const chart = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
   const x = d3.scaleBand().domain(data.map(d => d.region)).range([0, width]).padding(0.3);
-  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.emissions)]).range([height, 0]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.emissions)]).nice().range([height, 0]);
 
   chart.append("g").call(d3.axisLeft(y));
   chart.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x));
@@ -134,7 +142,7 @@ function drawScene2() {
 
 function drawScene3() {
   clearViz();
-  const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+  const margin = { top: 40, right: 30, bottom: 60, left: 100 };
   const width = 900 - margin.left - margin.right;
   const height = 500 - margin.top - margin.bottom;
 
@@ -158,7 +166,7 @@ function drawScene3() {
     data2020.forEach(d => d.Emissions = +d["Annual CO₂ emissions"]);
 
     const x = d3.scaleBand().domain(countries).range([0, width]).padding(0.3);
-    const y = d3.scaleLinear().domain([0, d3.max(data2020, d => d.Emissions)]).range([height, 0]);
+    const y = d3.scaleLinear().domain([0, d3.max(data2020, d => d.Emissions)]).nice().range([height, 0]);
 
     svg.append("g").call(d3.axisLeft(y));
     svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x));
@@ -176,7 +184,7 @@ function drawScene3() {
 
 function drawScene4() {
   clearViz();
-  const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+  const margin = { top: 40, right: 30, bottom: 60, left: 100 };
   const width = 900 - margin.left - margin.right;
   const height = 500 - margin.top - margin.bottom;
 
@@ -208,7 +216,7 @@ function drawScene4() {
     });
 
     const x = d3.scaleBand().domain(growthData.map(d => d.country)).range([0, width]).padding(0.3);
-    const y = d3.scaleLinear().domain([0, d3.max(growthData, d => d.growth) * 1.1]).range([height, 0]);
+    const y = d3.scaleLinear().domain([0, d3.max(growthData, d => d.growth)]).nice().range([height, 0]);
 
     svg.append("g").call(d3.axisLeft(y).tickFormat(d => d + "%"));
     svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x));
@@ -226,7 +234,7 @@ function drawScene4() {
 
 function drawScene5() {
   clearViz();
-  const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+  const margin = { top: 40, right: 30, bottom: 60, left: 100 };
   const width = 900 - margin.left - margin.right;
   const height = 500 - margin.top - margin.bottom;
 
@@ -251,7 +259,7 @@ function drawScene5() {
     const top7 = yearData.slice(0, 7);
 
     const x = d3.scaleBand().domain(top7.map(d => d.Entity)).range([0, width]).padding(0.3);
-    const y = d3.scaleLinear().domain([0, d3.max(top7, d => d.Emissions)]).range([height, 0]);
+    const y = d3.scaleLinear().domain([0, d3.max(top7, d => d.Emissions)]).nice().range([height, 0]);
 
     svg.append("g").call(d3.axisLeft(y));
     svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x));
