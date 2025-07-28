@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Annual CO₂ Emissions – 7 Country Focus</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -17,6 +17,7 @@
     </div>
   </div>
 
+  <!-- Load your script AFTER the DOM is ready -->
   <script src="script.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -44,11 +45,9 @@
         }
       }
 
-      // Add event listeners to buttons
       document.getElementById("nextBtn").addEventListener("click", nextScene);
       document.getElementById("prevBtn").addEventListener("click", prevScene);
 
-      // Start with first scene
       renderScene(currentScene);
     });
   </script>
