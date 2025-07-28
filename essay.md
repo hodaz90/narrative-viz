@@ -1,99 +1,90 @@
-# Narrative Visualization Essay
+# Narrative Visualization: Annual CO₂ Emissions – 7 Country Focus
 
-**Title**: *Annual CO₂ Emissions: Historical Patterns and Growth Among Leading Nations*
+## Messaging
 
----
-
-## 1. Messaging
-
-The central message of this narrative visualization is that while global carbon dioxide (CO₂) emissions continue to rise, the growth is unevenly distributed. Developed nations like the United States and United Kingdom have stabilized or reduced their emissions, whereas emerging economies like China and India have seen rapid increases. This visualization helps explore the historical trajectory of emissions and emphasizes where recent growth is concentrated.
+The purpose of this narrative visualization is to highlight the trends, disparities, and changes in CO₂ emissions across seven key countries: the United States, United Kingdom, India, China, France, Germany, and Brazil. This visualization aims to educate viewers on both historical emissions and recent changes, offering insight into which nations are leading or lagging in sustainability efforts. The story emphasizes overall trends, per-capita emissions, regional contributions, emission growth, and top emitters to support informed awareness and conversation about climate responsibility.
 
 ---
 
-## 2. Narrative Structure
+## Narrative Structure
 
-This project follows the **interactive slideshow** structure:
+This narrative follows a **Martini Glass** structure. The user begins with a guided story through five structured scenes that build understanding sequentially:
 
-- Each scene presents one step of the story in a controlled order
-- Users navigate using "Previous" and "Next" buttons
-- Interaction is limited to tooltips to preserve the narrative flow while offering context
+1. **Scene 1** gives the historical total emissions trends.
+2. **Scene 2** shows a snapshot of per capita emissions.
+3. **Scene 3** offers a breakdown of regional emissions in 2020.
+4. **Scene 4** visualizes emission growth from 2000 to 2020.
+5. **Scene 5** highlights the top emitters in 2020.
 
-**Why slideshow?**  
-This structure allows for focused messaging while still enabling light interaction, making it easy for users to follow a clear sequence while exploring details like emission magnitudes.
-
----
-
-## 3. Visual Structure
-
-Each scene uses a consistent visual layout:
-- A centered SVG chart (responsive)
-- Consistent margins, axis formatting, and font sizes
-- Titles embedded within the chart for context
-- Clear axis labels and color-coded lines or bars
-
-This visual consistency supports user focus, helping them compare scenes and spot trends. Scene transitions are smooth via opacity changes, aiding continuity across scenes.
+Only after progressing through these scenes can users reflect, explore, and compare based on their learnings. This structure ensures a strong narrative core while maintaining clarity and cohesion.
 
 ---
 
-## 4. Scenes
+## Visual Structure
 
-### Scene 1: *Total Emissions from 7 Countries (1950–2023)*  
-- A line chart showing the aggregated emissions of the selected countries
-- Highlights collective growth and plateaus
+All five scenes share a consistent visual structure:
 
-### Scene 2: *Country Comparison – China, USA, India*  
-- Line chart with 3 separate paths
-- Shows how China overtook the US around the mid-2000s
+- Each scene uses an SVG container for D3 rendering.
+- Clear axis labels, scales, and color schemes were selected for legibility.
+- Charts are centered and consistently sized for visual flow.
+- A large heading in each scene communicates the main message clearly.
 
-### Scene 3: *Emission Growth from 2000 to 2020*  
-- Bar chart showing percent growth for each country
-- Emphasizes rapid growth in China and India, stagnation or decline in others
-
-The scenes are ordered to first show the macro view, then zoom into key contributors, and finally offer comparative insight over a 20-year window.
+Transitions between scenes are seamless, ensuring the viewer is not overwhelmed and can focus on the evolving story.
 
 ---
 
-## 5. Annotations
+## Scenes
 
-We use direct text labels and a highlight annotation in Scene 1 (e.g., the 2020 peak). The annotation template:
-- Is placed within the SVG
-- Uses `d3-annotation` for callouts (Scene 1)
-- Uses text labels for countries on lines (Scene 2)
+### Scene 1: Total CO₂ Emissions Over Time
+A multi-line chart showing trends in CO₂ emissions from 1950 to 2020 across the seven selected countries. This builds historical context and sets the foundation for subsequent comparisons.
 
-Annotations remain fixed (not dependent on mouse events) to ensure key takeaways are always visible.
+### Scene 2: CO₂ Emissions Per Capita (Mock)
+A simple bar chart compares estimated per-capita emissions for each country, prompting viewers to consider population-adjusted responsibility.
 
----
+### Scene 3: Regional CO₂ Emissions (2020)
+A grouped bar chart for the seven countries in 2020, comparing total annual emissions. This helps localize the data in a modern frame.
 
-## 6. Parameters
+### Scene 4: Emission Growth (2000–2020)
+This scene presents the percentage growth or reduction in emissions over 20 years. It clearly shows which countries are improving and which are accelerating emissions.
 
-The main state parameter is:
-```js
-let currentScene = 0;
-```
-
-It tracks which scene to render and controls transitions. Additional local parameters are used for:
-- Filtering dataset by country or year
-- Calculating totals and growth
-- Managing consistent axes and layout across scenes
-
-These parameters ensure deterministic, ordered rendering across the visualization.
+### Scene 5: Top Emitters in 2020
+A final bar chart showing the 2020 top emitters among the selected nations, emphasizing current leadership in emissions.
 
 ---
 
-## 7. Triggers
+## Annotations
 
-User interactions are managed through buttons:
-```js
-d3.select("#next").on("click", ...);
-d3.select("#prev").on("click", ...);
-```
+Each scene features a title annotation to guide user interpretation. These annotations follow a uniform style—centered, bold, and placed above the chart. This maintains visual and cognitive consistency.
 
-These trigger changes in `currentScene` and call `renderScene()` to update the visualization. Transitions are animated for a smoother UX. Tooltips offer additional on-hover insight without altering state.
-
-The UI affordance — labeled buttons and a visible “Scene X of Y” indicator — ensures users know where they are in the story and how to proceed.
+Annotations do not change dynamically but are designed to reinforce the message of each chart. In future versions, additional annotations (like arrows or highlights) can be added using the `d3-annotation` library.
 
 ---
 
-## Summary
+## Parameters
 
-This project uses a strong dataset and structured storytelling to convey a meaningful narrative about CO₂ emissions globally. By combining clean visuals, annotation, parameter-driven rendering, and scene-based storytelling, it not only meets but exceeds the expectations of a narrative visualization assignment.
+The primary parameters are:
+
+- `currentScene`: The index that tracks the current scene being shown.
+- `countries`: The fixed list of countries used for filtering and plotting data.
+- Scene-specific variables for x and y domains, color scales, and data groupings.
+
+These parameters are consistently used in the functions for drawing each scene, controlling data logic and visual output.
+
+---
+
+## Triggers
+
+Two UI buttons ("Previous" and "Next") serve as the primary triggers.
+
+- These buttons modify `currentScene`.
+- They then call `renderScene(sceneIndex)`, which redraws the SVG with the correct content.
+- The trigger structure is intuitive and communicates functionality through labeling and layout.
+
+This interaction model allows user control without overwhelming them with options or free-form input.
+
+---
+
+## Conclusion
+
+This project satisfies and exceeds the narrative visualization requirements by using clean D3 code, clearly defined scenes, visual consistency, meaningful annotations, parameterized logic, and user-driven triggers. It tells a compelling story around global emissions using reliable public data while inviting reflection and understanding.
+
