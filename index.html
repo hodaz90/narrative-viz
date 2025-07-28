@@ -1,20 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Annual CO₂ Emissions – Narrative Visualization</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://unpkg.com/d3-annotation@2.5.1/dist/d3-annotation.min.js"></script>
+  <title>Annual CO₂ Emissions – 7 Country Focus</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-  <h1>Annual CO₂ Emissions – 7 Country Focus</h1>
-  <div id="viz"></div>
-  <div id="controls">
-    <button id="prev">Previous</button>
-    <span id="scene-indicator">Scene 1 of 3</span>
-    <button id="next">Next</button>
+  <div class="container">
+    <h1>Annual CO₂ Emissions – 7 Country Focus</h1>
+    <div id="viz"></div>
+    <div class="controls">
+      <button onclick="prevScene()">Previous</button>
+      <span id="sceneIndicator">Scene 1 of 5</span>
+      <button onclick="nextScene()">Next</button>
+    </div>
   </div>
+
   <script src="script.js"></script>
+  <script>
+    const scenes = [drawScene1, drawScene2, drawScene3, drawScene4, drawScene5];
+
+    function renderScene(index) {
+      scenes[index - 1]();
+      document.getElementById("sceneIndicator").innerText = `Scene ${index} of ${scenes.length}`;
+    }
+
+    function nextScene() {
+      if (currentScene < scenes.length) {
+        currentScene++;
+        renderScene(currentScene);
+      }
+    }
+
+    function prevScene() {
+      if (currentScene > 1) {
+        currentScene--;
+        renderScene(currentScene);
+      }
+    }
+
+    // Initialize first scene
+    renderScene(currentScene);
+  </script>
 </body>
 </html>
