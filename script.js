@@ -108,7 +108,7 @@ function drawScene2() {
     .attr("text-anchor", "middle")
     .style("font-size", "20px")
     .style("font-weight", "bold")
-    .text("Scene 2: CO₂ Emissions by Continent (Placeholder)");
+    .text("Scene 2: CO₂ Emissions by Continent");
 
   const data = [
     { region: "Asia", emissions: 18000000000 },
